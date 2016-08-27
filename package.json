@@ -1,0 +1,12 @@
+{
+  "name": "dext-github-plugin",
+  "version": "0.0.0",
+  "description": "Dext plugin to search for Github repositories.",
+  "keywords": ["dext", "dext-plugin", "github", "gh", "repository"],
+  "main": "index.js",
+  "author": "Vu Tran <vu@vu-tran.com>",
+  "license": "MIT",
+  "dependencies": {
+    "got": "^6.3.0"
+  }
+}
