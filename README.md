@@ -4,7 +4,9 @@
 
 ## Install
 
+```bash
 $ dpm install dext-github-plugin
+```
 
 ## Usage
 
