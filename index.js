@@ -3,7 +3,7 @@ const got = require('got');
 module.exports = {
   keyword: 'gh',
   action: 'openurl',
-  output: q => new Promise(resolve => {
+  execute: q => new Promise(resolve => {
     const opts = {
       query: {
         q: `${q} in:name`,
