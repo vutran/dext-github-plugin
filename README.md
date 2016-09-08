@@ -2,7 +2,7 @@
 
 > [Dext](https://github.com/vutran/dext) plugin to search for Github repositories.
 
-![](screenshot.gif?raw=true)
+![](screenshot.png?raw=true)
 
 ## Install
 
