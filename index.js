@@ -34,8 +34,8 @@ const makeRequest = (endpoint, options) => {
 const applyRelativeUrls = (html, fullName) => {
   const url = `https://github.com/${fullName}/blob/master`;
   // replace images
-  let parsedImages = html.replace(/\(([\w\d\s]+\.(?:png|gif|jpg|jpeg)+.*)\)/g, `(${url}/$1)`);
-  return parsedImages;
+  let parsed = html.replace(/\(([\w\d\s]+\.(?:png|gif|jpg|jpeg)+.*)\)/g, `(${url}/$1)`);
+  return parsed;
 };
 
 /**

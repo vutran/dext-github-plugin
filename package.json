@@ -12,7 +12,18 @@
   "main": "index.js",
   "author": "Vu Tran <vu@vu-tran.com>",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest --coverage"
+  },
   "dependencies": {
     "got": "^6.3.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^15.0.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "jest": "^15.1.1"
   }
 }
