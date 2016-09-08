@@ -2,6 +2,65 @@
 
 const got = require('got');
 
+// defailt API endpoint
+const ENDPOINT = 'https://api.github.com';
+
+/**
+ * Makes a new request to the given endpoint
+ *
+ * @param {String} endpoint
+ * @param {Object} options
+ * @return {Promise}
+ */
+const makeRequest = (endpoint, options) => {
+  // merge props
+  const opts = Object.assign({}, { json: true }, options);
+  // parse URL
+  const url = `${ENDPOINT}/${endpoint.replace(/^\//, '')}`;
+  // make request
+  const prom = got(url, opts);
+  return new Promise(resolve => {
+    prom.then(res => resolve(res.body));
+  });
+};
+
+/**
+ * Converst relative URLs into absolute URLs for the given repo
+ *
+ * @param {String} html
+ * @param {String} fullName
+ * @return {String}
+ */
+const applyRelativeUrls = (html, fullName) => {
+  const url = `https://github.com/${fullName}/blob/master`;
+  // replace images
+  let parsedImages = html.replace(/\(([\w\d\s]+\.(?:png|gif|jpg|jpeg)+.*)\)/g, `(${url}/$1)`);
+  return parsedImages;
+};
+
+/**
+ * Maps the GitHub repository item to a Dext item
+ *
+ * @param {Object} item
+ * @return {Object}
+ */
+const mapItems = item => Object.assign({}, {
+  title: item.full_name,
+  subtitle: item.description,
+  arg: item.html_url,
+  icon: {
+    path: item.owner.avatar_url,
+  },
+});
+
+/**
+ * Converts a base64 string to utf8
+ */
+const base64ToUTF8 = content => {
+  const buff = Buffer.from(content || '', 'base64');
+  return buff.toString('utf8');
+};
+
 module.exports = {
   keyword: 'gh',
   action: 'openurl',
@@ -17,34 +76,24 @@ module.exports = {
       query: {
         q: `${q} in:name`,
       },
-      json: true,
     };
-    got('https://api.github.com/search/repositories', opts)
-      .then(res => {
-        if (res.body) {
-          const items = res.body.items
-            .map(i => Object.assign({}, {
-              title: i.full_name,
-              subtitle: i.description,
-              arg: i.html_url,
-              icon: {
-                path: i.owner.avatar_url,
-              },
-            }))
-            .slice(0, 20);
-          resolve({ items });
-        }
+    // searches the API for repositories by name
+    // https://developer.github.com/v3/search/#search-repositories
+    makeRequest('/search/repositories', opts)
+      .then(body => {
+        const items = body.items
+          .map(mapItems)
+          .slice(0, 20);
+        resolve({ items });
       });
   }),
   details: {
     type: 'md',
-    // renders the README.md
+    // retrieve the preferred README file
+    // https://developer.github.com/v3/repos/contents/#get-the-readme
     render: item => new Promise(resolve => {
-      got(`https://api.github.com/repos/${item.title}/contents/README.md`, { json: true })
-        .then(res => {
-          const buff = Buffer.from(res.body.content || '', 'base64');
-          resolve(buff.toString('utf8'));
-        });
+      makeRequest(`/repos/${item.title}/readme`)
+        .then(body => resolve(applyRelativeUrls(base64ToUTF8(body.content), item.title)));
     }),
   },
 };
