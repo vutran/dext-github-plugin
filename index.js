@@ -36,4 +36,15 @@ module.exports = {
         }
       });
   }),
+  details: {
+    type: 'md',
+    // renders the README.md
+    render: item => new Promise(resolve => {
+      got(`https://api.github.com/repos/${item.title}/contents/README.md`, { json: true })
+        .then(res => {
+          const buff = Buffer.from(res.body.content || '', 'base64');
+          resolve(buff.toString('utf8'));
+        });
+    }),
+  },
 };
