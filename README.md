@@ -1,5 +1,5 @@
 # dext-github-plugin
-
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 > [Dext](https://github.com/vutran/dext) plugin to search for Github repositories.
 
 ![](screenshot.png?raw=true)
