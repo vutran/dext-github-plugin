@@ -13,7 +13,7 @@
   "author": "Vu Tran <vu@vu-tran.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint __tests__ index.js",
     "test": "jest --coverage"
   },
   "dependencies": {
@@ -24,6 +24,9 @@
     "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^2.0.0",
     "jest": "^15.1.1"
   }
 }

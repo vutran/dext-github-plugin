@@ -19,7 +19,7 @@ const makeRequest = (endpoint, options) => {
   const url = `${ENDPOINT}/${endpoint.replace(/^\//, '')}`;
   // make request
   const prom = got(url, opts);
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     prom.then(res => resolve(res.body));
   });
 };
@@ -34,7 +34,7 @@ const makeRequest = (endpoint, options) => {
 const applyRelativeUrls = (html, fullName) => {
   const url = `https://github.com/${fullName}/blob/master`;
   // replace images
-  let parsed = html.replace(/\(([\w\d\s]+\.(?:png|gif|jpg|jpeg)+.*)\)/g, `(${url}/$1)`);
+  const parsed = html.replace(/\(([\w\d\s]+\.(?:png|gif|jpg|jpeg)+.*)\)/g, `(${url}/$1)`);
   return parsed;
 };
 
@@ -51,12 +51,22 @@ const mapItems = item => Object.assign({}, {
   icon: {
     path: item.owner.avatar_url,
   },
+  mods: {
+    alt: {
+      arg: 'http://google.com',
+      subtitle: 'Visit Google',
+    },
+    cmd: {
+      arg: 'http://facebook.com',
+      subtitle: 'Visit Facebook',
+    },
+  },
 });
 
 /**
  * Converts a base64 string to utf8
  */
-const base64ToUTF8 = content => {
+const base64ToUTF8 = (content) => {
   const buff = Buffer.from(content || '', 'base64');
   return buff.toString('utf8');
 };
@@ -71,7 +81,7 @@ module.exports = {
       path: './icon.png',
     },
   },
-  execute: q => new Promise(resolve => {
+  execute: q => new Promise((resolve) => {
     const opts = {
       query: {
         q: `${q} in:name`,
@@ -80,7 +90,7 @@ module.exports = {
     // searches the API for repositories by name
     // https://developer.github.com/v3/search/#search-repositories
     makeRequest('/search/repositories', opts)
-      .then(body => {
+      .then((body) => {
         const items = body.items
           .map(mapItems)
           .slice(0, 20);
@@ -91,7 +101,7 @@ module.exports = {
     type: 'md',
     // retrieve the preferred README file
     // https://developer.github.com/v3/repos/contents/#get-the-readme
-    render: item => new Promise(resolve => {
+    render: item => new Promise((resolve) => {
       makeRequest(`/repos/${item.title}/readme`)
         .then(body => resolve(applyRelativeUrls(base64ToUTF8(body.content), item.title)));
     }),
