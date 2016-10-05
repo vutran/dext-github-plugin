@@ -1,5 +1,7 @@
 # dext-github-plugin
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+[![Travis](https://img.shields.io/travis/vutran/dext-github-plugin/develop.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/vutran/dext-github-plugin) [![Coveralls branch](https://img.shields.io/coveralls/vutran/dext-github-plugin/develop.svg?maxAge=2592000&style=flat-square)](https://coveralls.io/github/vutran/dext-github-plugin) [![license](https://img.shields.io/github/license/vutran/dext-github-plugin.svg?maxAge=2592000&style=flat-square)](LICENSE)
+
 > [Dext](https://github.com/vutran/dext) plugin to search for Github repositories.
 
 ![](screenshot.png?raw=true)
