@@ -53,12 +53,12 @@ const mapItems = item => Object.assign({}, {
   },
   mods: {
     alt: {
-      arg: 'http://google.com',
-      subtitle: 'Visit Google',
+      arg: `${item.html_url}/issues`,
+      subtitle: 'View project issues.',
     },
     cmd: {
-      arg: 'http://facebook.com',
-      subtitle: 'Visit Facebook',
+      arg: `https://github.com/${item.full_name.split('/')[0]}`,
+      subtitle: 'View author\'s profile.',
     },
   },
 });
@@ -81,7 +81,7 @@ module.exports = {
       path: './icon.png',
     },
   },
-  execute: q => new Promise((resolve) => {
+  query: q => new Promise((resolve) => {
     const opts = {
       query: {
         q: `${q} in:name`,
