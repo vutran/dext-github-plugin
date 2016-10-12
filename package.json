@@ -1,6 +1,6 @@
 {
   "name": "dext-github-plugin",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Dext plugin to search for Github repositories.",
   "keywords": [
     "dext",
