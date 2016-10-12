@@ -2,7 +2,7 @@ const m = require('../');
 
 describe('module', () => {
   it('should retrieve some results', async () => {
-    const results = await m.execute('dext');
+    const results = await m.query('dext');
     expect(results).toBeTruthy();
   });
 
