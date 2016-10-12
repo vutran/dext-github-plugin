@@ -57,7 +57,7 @@ const mapItems = item => Object.assign({}, {
       subtitle: 'View project issues.',
     },
     cmd: {
-      arg: `${item.html_url.split('/')[0]}`,
+      arg: `https://github.com/${item.full_name.split('/')[0]}`,
       subtitle: 'View author\'s profile.',
     },
   },
