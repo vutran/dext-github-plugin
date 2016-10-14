@@ -16,6 +16,10 @@
     "lint": "eslint __tests__ index.js",
     "test": "jest --coverage"
   },
+  "files": [
+    "index.js",
+    "icon.png"
+  ],
   "dependencies": {
     "got": "^6.3.0"
   },
