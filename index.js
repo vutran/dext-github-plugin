@@ -2,7 +2,7 @@
 
 const got = require('got');
 
-// defailt API endpoint
+// default API endpoint
 const ENDPOINT = 'https://api.github.com';
 
 /**
@@ -13,11 +13,8 @@ const ENDPOINT = 'https://api.github.com';
  * @return {Promise}
  */
 const makeRequest = (endpoint, options) => {
-  // merge props
   const opts = Object.assign({}, { json: true }, options);
-  // parse URL
   const url = `${ENDPOINT}/${endpoint.replace(/^\//, '')}`;
-  // make request
   const prom = got(url, opts);
   return new Promise((resolve) => {
     prom.then(res => resolve(res.body));
